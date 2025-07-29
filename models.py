@@ -11,7 +11,8 @@ merged_df = pd.read_pickle('merged_nse_df.pkl')
 
 # Prophet model:
 def predict_prophet(merged_df):
-    df_prophet = merged_df[['Date', 'Day Price']].rename(columns={'Date':'ds', 'Day Price':'y'})
+    df_prophet = merged_df[['Date', 'Day Price']].rename(columns={'Date':'ds', 'Day Price':'y'}).dropna()
+    df_prophet["ds"] = pd.to_datetime(df_prophet["ds"], errors="coerce")
     m = Prophet(daily_seasonality=True)
     m.fit(df_prophet)
 
