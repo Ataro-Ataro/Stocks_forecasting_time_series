@@ -5,7 +5,10 @@
 # # st.title("📈 NSE Stock Prediction App")
 
 # # # Load the already cleaned data
-# # merged_df = pd.read_pickle("merged_nse_df.pkl")
+# # @st.cache_data
+    def load_data():
+        return pd.read_pickle("merged_nse_df.pkl")
+    merged_df = load_data()
 
 # # # Show available stocks
 # # stock_list = sorted(merged_df['Name'].unique())
