@@ -5,10 +5,7 @@
 # # st.title("📈 NSE Stock Prediction App")
 
 # # # Load the already cleaned data
-# # @st.cache_data
-    def load_data():
-        return pd.read_pickle("merged_nse_df.pkl")
-    merged_df = load_data()
+# # merged_df = pd.read_pickle("merged_nse_df.pkl")
 
 # # # Show available stocks
 # # stock_list = sorted(merged_df['Name'].unique())
@@ -168,12 +165,7 @@ if st.button("Predict Next 30 Days"):
         st.line_chart(forecast.set_index('ds')[['yhat', 'yhat_lower', 'yhat_upper']])
     
     elif model_choice == "LSTM":
-    try:
         backtest_df, future_df = predict_with_lstm(df_stock, features, future_days=30)
-    except Exception as e:
-        st.error(f"⚠ LSTM prediction failed: {e}")
-        st.stop()
-        
 
         # Drop NA in case of rolling window gaps
         backtest_df = backtest_df.dropna()
